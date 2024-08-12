@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,59 +30,38 @@ public class MainActivity extends AppCompatActivity {
 
         a = findViewById(R.id.bil01);
         b = findViewById(R.id.bil02);
-
         plusbtn = findViewById(R.id.plusbtn);
         minbtn = findViewById(R.id.minbtn);
         multibtn = findViewById(R.id.multibtn);
         divbtn = findViewById(R.id.divbtn);
         rslt = findViewById(R.id.tvrslt);
 
-        plusbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rslt.setText("");
-                Integer x, y, z;
-                x = Integer.parseInt(a.getText().toString());
-                y = Integer.parseInt(b.getText().toString());
+        plusbtn.setOnClickListener(view -> displayrslt("+"));
+        minbtn.setOnClickListener(view -> displayrslt("-"));
+        multibtn.setOnClickListener(view -> displayrslt("*"));
+        divbtn.setOnClickListener(view -> displayrslt("/"));
+    }
+
+    private void displayrslt(String operator) {
+        int x = Integer.parseInt(a.getText().toString());
+        int y = Integer.parseInt(b.getText().toString());
+        int z = 0;
+
+        switch (operator) {
+            case "+":
                 z = x + y;
-                rslt.setText(z.toString());
-            }
-        });
-
-        minbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rslt.setText("");
-                Integer x, y, z;
-                x = Integer.parseInt(a.getText().toString());
-                y = Integer.parseInt(b.getText().toString());
+                break;
+            case "-":
                 z = x - y;
-                rslt.setText(z.toString());
-            }
-        });
-
-        multibtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rslt.setText("");
-                Integer x, y, z;
-                x = Integer.parseInt(a.getText().toString());
-                y = Integer.parseInt(b.getText().toString());
+                break;
+            case "*":
                 z = x * y;
-                rslt.setText(z.toString());
-            }
-        });
-
-        divbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rslt.setText("");
-                Integer x, y, z;
-                x = Integer.parseInt(a.getText().toString());
-                y = Integer.parseInt(b.getText().toString());
+                break;
+            case "/":
                 z = x / y;
-                rslt.setText(z.toString());
-            }
-        });
+                break;
+        }
+
+        rslt.setText(String.format("%d %s %d = %d", x, operator, y, z));
     }
 }
